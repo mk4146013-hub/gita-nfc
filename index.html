@@ -256,6 +256,69 @@ const quizQuestions = [
     explanation: 'Arjuna’s dilemma shows that confusion can be the beginning of inquiry. Understanding one’s responsibility and seeking guidance can help clarify the next step.',
     reference: 'Bhagavad Gita 2.7 and Chapter 2 · practical application'
   }
+
+  ,{
+    question: 'You feel jealous when someone else succeeds. What is a healthier response?',
+    options: ['Try to undermine their success','Recognise the feeling and return to your own growth','Decide your efforts are pointless','Pretend you never feel emotions'],
+    answer: 1,
+    explanation: 'Steadiness and self-understanding help us respond rather than react. Another person’s success does not prevent your own sincere effort.',
+    reference: 'Inspired by Bhagavad Gita 12.13–14 · modern reflection'
+  },{
+    question: 'You are angry and about to send a harsh message. What should you do first?',
+    options: ['Send it immediately','Ask others to attack the person','Pause until you can think clearly, then respond','Delete every relationship in anger'],
+    answer: 2,
+    explanation: 'The Gita describes how anger can cloud judgement. A pause can help restore discernment before action.',
+    reference: 'Bhagavad Gita 2.62–63 · practical application'
+  },{
+    question: 'You have many tasks and feel overwhelmed. Which approach is most useful?',
+    options: ['Choose the next important task and work steadily','Keep worrying about all tasks at once','Avoid everything until the deadline','Do several tasks carelessly at once'],
+    answer: 0,
+    explanation: 'Steady, deliberate action is more useful than being controlled by worry about every outcome.',
+    reference: 'Inspired by Bhagavad Gita 3.19 · modern reflection'
+  },{
+    question: 'Someone asks for help, but you have limited time. What is a thoughtful response?',
+    options: ['Promise anything, even if impossible','Ignore them without explanation','Help only if you receive praise','Be honest about your limits and offer what help you reasonably can'],
+    answer: 3,
+    explanation: 'Helpful action can be paired with discernment and honesty. Duty does not require pretending that limits do not exist.',
+    reference: 'Inspired by Bhagavad Gita 18.23 · modern reflection'
+  },{
+    question: 'You receive criticism that may be useful. What should you do?',
+    options: ['Reject it automatically','Consider it calmly and keep what is useful','Treat it as proof you have no value','Retaliate immediately'],
+    answer: 1,
+    explanation: 'Discernment means examining feedback rather than accepting or rejecting it solely from emotion.',
+    reference: 'Inspired by Bhagavad Gita 18.30 · modern reflection'
+  },{
+    question: 'You promised to finish a task but now feel bored. What is the best next step?',
+    options: ['Abandon it without telling anyone','Wait until motivation is perfect','Revisit the commitment and complete it responsibly or communicate honestly','Blame the person who trusted you'],
+    answer: 2,
+    explanation: 'Steady effort includes acting responsibly even when enthusiasm changes, while communicating honestly when circumstances require a change.',
+    reference: 'Inspired by Bhagavad Gita 3.8 · modern reflection'
+  },{
+    question: 'You are uncertain which choice is right. What should guide you?',
+    options: ['Immediate impulse alone','What earns the most applause','Whatever avoids every difficult feeling','Careful reflection on values, responsibilities, and consequences'],
+    answer: 3,
+    explanation: 'The Gita’s dialogue models asking questions and using discernment when a decision feels difficult.',
+    reference: 'Bhagavad Gita 18.63 · practical application'
+  },{
+    question: 'After a setback, how can you rebuild confidence?',
+    options: ['Take one realistic step and learn from the experience','Wait for someone else to solve everything','Decide the future is already ruined','Compare yourself constantly with others'],
+    answer: 0,
+    explanation: 'Self-effort and steady practice are recurring themes. A small constructive action can help restart momentum.',
+    reference: 'Inspired by Bhagavad Gita 6.5 · modern reflection'
+  },{
+    question: 'You are praised for work you did with a team. What is a balanced response?',
+    options: ['Claim all the credit','Reject all appreciation angrily','Accept appreciation graciously and acknowledge others’ contributions','Use the praise to belittle teammates'],
+    answer: 2,
+    explanation: 'Humility and freedom from excessive ego are useful ways to handle recognition while remaining committed to good work.',
+    reference: 'Inspired by Bhagavad Gita 13.7–8 · modern reflection'
+  },{
+    question: 'You keep checking results instead of doing the work. What could help?',
+    options: ['Stop caring about quality entirely','Set a work period and focus on the next action before checking results','Ask others to check every minute','Give up because uncertainty exists'],
+    answer: 1,
+    explanation: 'Non-attachment is not carelessness; it means doing the work sincerely without letting constant outcome-checking dominate attention.',
+    reference: 'Bhagavad Gita 2.47 · practical application'
+  }
+
 ];
 
 const XP_LEVELS = [
@@ -370,7 +433,7 @@ function openWisdomChallenge() {
         answered = true;
 
         const correct = index === q.answer;
-         if (correct) {   score++;    const firstTime = awardQuestionXP(questionIndex);    if (firstTime) {     toast('+20 XP earned! 🌟');   } else {     toast('Already earned XP for this question.');   } }
+         if (correct) {   score++;    const firstTime = awardQuestionXP(questionOrder[questionIndex]);    if (firstTime) {     toast('+20 XP earned! 🌟');   } else {     toast('Already earned XP for this question.');   } }
 
         Array.from(optionsBox.children).forEach((b, i) => {
           b.disabled = true;
@@ -480,12 +543,46 @@ function openStatusStudio(){
  const nameLabel=el('label',{},'Signature name (optional)');const savedName=get('gita-name','');const name=el('input',{class:'field',placeholder:'Use Your space name or enter another',value:savedName});nameLabel.append(name);controls.append(themeLabel,nameLabel);box.append(controls);
  const canvas=el('canvas',{class:'status-canvas-preview',width:'540',height:'960'});canvas.setAttribute('aria-label','Live preview of Gita status image');box.append(canvas);
  const v=verses[currentVerse];function draw(){const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;const palettes={classic:['#17274a','#080f22'],chariot:['#35203c','#10182e'],nature:['#123b39','#081d27']};const colors=palettes[theme.value]||palettes.classic;const grad=ctx.createLinearGradient(0,0,w,h);grad.addColorStop(0,colors[0]);grad.addColorStop(1,colors[1]);ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);ctx.strokeStyle='#e8c777';ctx.lineWidth=2;ctx.strokeRect(28,28,w-56,h-56);ctx.textAlign='center';ctx.fillStyle='#e8c777';ctx.font='bold 19px Georgia';ctx.fillText('GITA MOMENTS',w/2,82);
- if(theme.value==='chariot'){ctx.globalAlpha=.28;ctx.font='150px Georgia';ctx.fillText('☼',w/2,240);ctx.font='50px Georgia';ctx.fillText('♜  🐎  ♜',w/2,305);ctx.globalAlpha=1}else if(theme.value==='nature'){ctx.globalAlpha=.26;ctx.font='110px Georgia';ctx.fillText('🪷',w/2,245);ctx.globalAlpha=1}else{ctx.strokeStyle='#e8c77777';ctx.beginPath();ctx.arc(w/2,205,75,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#e8c777';ctx.font='70px Georgia';ctx.fillText('ॐ',w/2,230)}
+ if(theme.value==='chariot'){
+   // Gold halo, chariot wheels, horses and a simple Krishna–Arjuna silhouette drawn as vector shapes.
+   ctx.save();ctx.globalAlpha=.9;ctx.strokeStyle='#e8c777';ctx.fillStyle='#e8c777';ctx.lineWidth=4;
+   ctx.beginPath();ctx.arc(w/2,190,66,0,Math.PI*2);ctx.stroke();
+   ctx.beginPath();ctx.arc(w/2-78,286,29,0,Math.PI*2);ctx.arc(w/2+78,286,29,0,Math.PI*2);ctx.stroke();
+   ctx.beginPath();ctx.moveTo(w/2-120,255);ctx.lineTo(w/2+120,255);ctx.lineTo(w/2+100,220);ctx.lineTo(w/2-90,220);ctx.closePath();ctx.fill();
+   ctx.beginPath();ctx.arc(w/2-28,151,15,0,Math.PI*2);ctx.arc(w/2+24,151,15,0,Math.PI*2);ctx.fill();
+   ctx.fillRect(w/2-43,168,30,48);ctx.fillRect(w/2+9,168,30,48);
+   ctx.beginPath();ctx.moveTo(w/2-50,180);ctx.lineTo(w/2-82,207);ctx.lineTo(w/2-104,194);ctx.moveTo(w/2+40,180);ctx.lineTo(w/2+72,207);ctx.stroke();
+   ctx.beginPath();ctx.moveTo(w/2-110,220);ctx.lineTo(w/2+118,220);ctx.stroke();ctx.restore();
+ }else if(theme.value==='nature'){ctx.save();ctx.globalAlpha=.55;ctx.strokeStyle='#e8c777';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(w/2,260);ctx.bezierCurveTo(w/2-20,215,w/2-90,220,w/2-65,170);ctx.bezierCurveTo(w/2-10,170,w/2,205,w/2,260);ctx.bezierCurveTo(w/2+20,215,w/2+90,220,w/2+65,170);ctx.bezierCurveTo(w/2+10,170,w/2,205,w/2,260);ctx.stroke();ctx.beginPath();ctx.arc(w/2,210,45,0,Math.PI*2);ctx.stroke();ctx.restore()}else{ctx.strokeStyle='#e8c77777';ctx.beginPath();ctx.arc(w/2,205,75,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#e8c777';ctx.font='70px Georgia';ctx.fillText('ॐ',w/2,230)}
  ctx.fillStyle='#f8e7b3';ctx.font='24px Georgia';wrapCanvas(ctx,v.sanskrit,w/2,370,420,38);ctx.fillStyle='#fff9eb';ctx.font='20px "Noto Serif Telugu",Georgia';wrapCanvas(ctx,v.meaning,w/2,560,420,34);ctx.fillStyle='#e8c777';ctx.font='16px Georgia';wrapCanvas(ctx,v.ref,w/2,760,420,26);ctx.fillStyle='#c3c8d5';ctx.font='14px Georgia';ctx.fillText('Pause • Reflect • Move forward',w/2,875);const sig=name.value.trim();if(sig){ctx.fillStyle='#f8e7b3';ctx.font='16px Georgia';ctx.fillText(`With care, ${sig}`.slice(0,55),w/2,910)}}
  theme.onchange=draw;name.oninput=draw;draw();const download=el('button',{class:'btn primary'},'Download PNG');download.onclick=()=>{draw();const a=el('a');a.download='gita-moments-status.png';a.href=canvas.toDataURL('image/png');a.click()};box.append(download);modal(box)
 }
 function wrapCanvas(ctx,text,x,y,maxWidth,lineHeight){const words=String(text).split(/\s+/);let line='',yy=y;for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){ctx.fillText(line,x,yy);line=word;yy+=lineHeight}else line=test}if(line)ctx.fillText(line,x,yy)}
-function speakCurrentWisdom(){if(!('speechSynthesis'in window)){toast('Text-to-speech is not supported in this browser.');return}window.speechSynthesis.cancel();const v=verses[currentVerse],voices=window.speechSynthesis.getVoices();const te=voices.find(x=>/^te(-|$)/i.test(x.lang)),hi=voices.find(x=>/^hi(-|$)/i.test(x.lang));const match=String(v.ref||'').match(/(\d+)\.(\d+)/);const spokenRef=match?`అధ్యాయం ${match[1].split('').join(' ')}, శ్లోకం ${match[2].split('').join(' ')}`:'భగవద్గీత శ్లోకం';const queue=[{text:spokenRef,lang:'te-IN',voice:te},{text:v.sanskrit,lang:'hi-IN',voice:hi},{text:v.meaning,lang:'te-IN',voice:te}];let i=0;const next=()=>{if(i>=queue.length)return;const item=queue[i++],u=new SpeechSynthesisUtterance(item.text);u.lang=item.lang;u.rate=.78;if(item.voice)u.voice=item.voice;u.onend=next;u.onerror=()=>{if(i<queue.length)next()};window.speechSynthesis.speak(u)};next();toast('Reading verse reference, Sanskrit and Telugu meaning. Voice quality depends on installed browser voices.')}
+function speakCurrentWisdom(){
+ if(!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)){toast('Text-to-speech is not supported in this browser.');return}
+ const synth=window.speechSynthesis; synth.cancel();
+ const v=verses[currentVerse], voices=synth.getVoices();
+ const te=voices.find(x=>/^te(-|$)/i.test(x.lang));
+ const hi=voices.find(x=>/^hi(-|$)/i.test(x.lang)) || voices.find(x=>/^sa(-|$)/i.test(x.lang));
+ const match=String(v.ref||'').match(/(\d+)\.(\d+)/);
+ const words=n=>String(n).split('').map(d=>({'0':'సున్నా','1':'ఒకటి','2':'రెండు','3':'మూడు','4':'నాలుగు','5':'ఐదు','6':'ఆరు','7':'ఏడు','8':'ఎనిమిది','9':'తొమ్మిది'}[d]||d)).join(' ');
+ const spokenRef=match?`అధ్యాయం ${words(match[1])}, శ్లోకం ${words(match[2])}`:'భగవద్గీత శ్లోకం';
+ const queue=[{text:spokenRef,lang:'te-IN',voice:te},{text:v.sanskrit,lang:hi?'hi-IN':'sa-IN',voice:hi},{text:v.meaning,lang:'te-IN',voice:te}].filter(x=>x.text);
+ let i=0,token=0;
+ const next=()=>{
+   if(i>=queue.length)return;
+   const item=queue[i++],thisToken=++token,u=new SpeechSynthesisUtterance(item.text);
+   u.lang=item.lang;u.rate=.78;u.pitch=1;if(item.voice)u.voice=item.voice;
+   let advanced=false;const advance=()=>{if(advanced||thisToken!==token)return;advanced=true;setTimeout(next,180)};
+   u.onend=advance;u.onerror=advance;
+   // Some desktop speech engines fail to fire onend; estimate duration as a fallback.
+   const fallback=Math.max(3500,Math.min(18000,item.text.length*95));
+   setTimeout(advance,fallback);
+   synth.speak(u);
+ };
+ if(!voices.length && synth.onvoiceschanged!==undefined){synth.onvoiceschanged=()=>{};}
+ next();toast('Reading chapter and verse, Sanskrit, then Telugu meaning. Sanskrit/Telugu voice quality depends on voices installed in your browser.');
+}
 
 function saveOfflinePack(){const pack={savedAt:new Date().toISOString(),verses,moments,chapters,chapterSummaries};put('gita-offline-pack',pack);$('offlinePackStatus').textContent=`Saved ${verses.length} wisdom cards and ${moments.length} Gita Moments on this device.`;toast('Offline wisdom pack saved')}
 function openOfflinePack(){const pack=get('gita-offline-pack',null);const box=el('div');box.append(el('h2',{},'📦 Offline Wisdom Pack'));if(!pack){box.append(el('p',{},'No pack saved yet. Connect once and choose “Save offline pack”.'));modal(box);return}box.append(el('p',{},`Saved ${pack.verses.length} wisdom cards and ${pack.moments.length} Gita Moments.`));pack.verses.forEach(v=>{box.append(el('h3',{},v.title));box.append(el('p',{},v.sanskrit));box.append(el('p',{},v.meaning));box.append(el('div',{class:'reference'},v.ref))});modal(box)}
