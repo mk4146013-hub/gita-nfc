@@ -18,6 +18,17 @@
 <div class="card moments"><div class="card-kicker">When you need a little pause</div><h3>Gita Moments</h3><div class="moment-body"><div class="moment-label" id="momentType">A story in two minutes</div><p id="momentText">On the battlefield, Arjuna looked at the people he loved and felt overwhelmed. Before acting, he admitted his confusion to Krishna. The first step toward clarity was not pretending to be fearless—it was asking for guidance.</p><p id="momentLesson"><strong>Takeaway:</strong> You do not need every answer before you begin. Start by being honest about what is troubling you.</p></div><div class="actions"><button class="btn" id="previousMoment" disabled>← Previous</button><button class="btn primary" id="nextMoment">Next unseen moment ↗</button><button class="btn" id="momentHistory">History</button></div></div>
 </section>
 <section><div class="section-head"><div><h2>Wisdom for this moment</h2><p>Choose what you’re feeling. We’ll show a related reflection.</p></div><span class="pill">Curated starter set</span></div><div class="mood-grid" id="moodGrid"><button class="mood" data-mood="calm"><span>🌿</span><small>Need calm</small></button><button class="mood" data-mood="courage"><span>🛡️</span><small>Need courage</small></button><button class="mood" data-mood="focus"><span>🎯</span><small>Need focus</small></button><button class="mood" data-mood="hope"><span>🌅</span><small>Need hope</small></button></div><div class="card hidden" id="moodResult" style="margin-top:12px"><div class="card-kicker" id="moodLabel">A reflection</div><h3 id="moodTitle"></h3><p id="moodMeaning"></p><div class="reference" id="moodRef"></div></div></section>
+
+<section class="card" style="margin-top:14px">
+  <div class="card-kicker">Test your understanding</div>
+  <h3>Wisdom Challenge 🏹</h3>
+  <p>Five everyday situations. Choose a response, discover the Gita perspective, and reflect on your choice.</p>
+  <p class="reference">Inspired by Bhagavad Gita themes. Modern scenarios are not direct scripture quotations.</p>
+  <div class="actions">
+    <button class="btn primary" id="wisdomChallengeBtn">Start challenge →</button>
+  </div>
+</section>
+
 <section class="grid"><div class="card lower-card"><div class="card-kicker">Explore</div><h3>18 chapters</h3><p>Explore the journey from Arjuna’s questions to Krishna’s teaching.</p><button class="btn" id="chaptersBtn">Open chapter guide</button></div><div class="card lower-card"><div class="card-kicker">Your journey</div><h3>Saved wisdom</h3><p id="savedCount">No saved verses yet. Keep what speaks to you.</p><button class="btn" id="favoritesBtn">View favourites</button></div><div class="card lower-card"><div class="card-kicker">Private reflection</div><h3>Reflection diary</h3><p>Write a thought for yourself. This starter version keeps notes in this browser.</p><button class="btn" id="diaryBtn">Open diary</button></div></section>
 <section class="card" style="margin-top:14px"><div class="card-kicker">A gentle daily practice</div><h3>One minute for yourself</h3><p>What is one thing you can do today with sincerity, without letting the outcome control your peace?</p><div class="actions"><button class="btn" id="writePrompt">Reflect on this</button><button class="btn ghost" id="installBtn" disabled>Install app when available</button></div><div class="progress"><span id="progressBar"></span></div><div class="reference" id="journeyText">Your journey begins with one small pause.</div></section>
 </main><footer class="footer"><span>Made for reflection, not as a substitute for the full scripture.</span><span>Offline-ready foundation · Private notes stay on this device</span></footer></div><div class="toast" id="toast"></div><div class="modal-backdrop hidden" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true"><button class="close" id="closeModal" aria-label="Close">×</button><div id="modalContent"></div></div></div>
@@ -136,11 +147,189 @@ const chapterSummaries=[
 'The concluding chapter revisits action, discernment, duty, renunciation, and surrender, bringing the teaching toward its conclusion.'
 ];
 
+const quizQuestions = [
+  {
+    question: 'You worked hard for an exam, but the result is uncertain. What is the most constructive response?',
+    options: [
+      'Give up because success is not guaranteed',
+      'Focus on preparation and learn from the result',
+      'Blame everyone else for the uncertainty',
+      'Ignore preparation and hope for luck'
+    ],
+    answer: 1,
+    explanation: 'The Gita teaches sincere action without excessive attachment to results. This does not mean ignoring outcomes or preparation.',
+    reference: 'Bhagavad Gita 2.47 · practical application'
+  },
+  {
+    question: 'Your mind keeps wandering while you study. What should you try?',
+    options: [
+      'Decide that you can never concentrate',
+      'Keep switching between unrelated tasks',
+      'Gently bring your attention back and practise',
+      'Get angry with yourself every time'
+    ],
+    answer: 2,
+    explanation: 'The Gita discusses practice and detachment as ways of training the restless mind. Returning your attention is part of the practice.',
+    reference: 'Bhagavad Gita 6.35 · practical application'
+  },
+  {
+    question: 'You make a mistake and feel like a failure. Which response is most helpful?',
+    options: [
+      'Treat one mistake as your whole identity',
+      'Hide every mistake and refuse feedback',
+      'Blame yourself without changing anything',
+      'Accept what happened and take a constructive next step'
+    ],
+    answer: 3,
+    explanation: 'The Gita encourages self-discipline and inner steadiness. Learning from a mistake is a practical way to move forward rather than remain stuck in self-defeat.',
+    reference: 'Inspired by Bhagavad Gita 6.5 · modern reflection'
+  },
+  {
+    question: 'A friend disagrees with you. What is a thoughtful first response?',
+    options: [
+      'Pause, listen, and consider the situation carefully',
+      'Assume they are always against you',
+      'React immediately to win the argument',
+      'Spread the disagreement to embarrass them'
+    ],
+    answer: 0,
+    explanation: 'Discernment and steadiness are recurring themes in the Gita. Listening carefully before acting is a modern application, not a direct quotation.',
+    reference: 'Inspired by Bhagavad Gita, Chapters 2–3'
+  },
+  {
+    question: 'You have an important responsibility but feel afraid. What should you do?',
+    options: [
+      'Pretend the responsibility does not exist',
+      'Understand your duty, seek guidance if needed, and act carefully',
+      'Rush into action without considering consequences',
+      'Wait until you never feel afraid'
+    ],
+    answer: 1,
+    explanation: 'Arjuna’s dilemma shows that confusion can be the beginning of inquiry. Understanding one’s responsibility and seeking guidance can help clarify the next step.',
+    reference: 'Bhagavad Gita 2.7 and Chapter 2 · practical application'
+  }
+];
+
 let currentVerse=0,currentMoment=0;let verseTrail=get('gita-verse-trail',[0]),versePos=verseTrail.length-1,momentTrail=get('gita-moment-trail',[0]),momentPos=momentTrail.length-1;const $=id=>document.getElementById(id);function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2300)}function get(key,fall){try{return JSON.parse(localStorage.getItem(key))??fall}catch{return fall}}function put(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch{toast('Browser storage is unavailable')}}
 function showVerse(i,record=true){currentVerse=(i+verses.length)%verses.length;const v=verses[currentVerse];$('verseTitle').textContent=v.title;$('verseText').textContent=v.sanskrit;$('verseMeaning').textContent=v.meaning;$('verseRef').textContent=v.ref+' · simplified Telugu meaning';if(record){if(verseTrail[versePos]!==currentVerse){verseTrail=verseTrail.slice(0,versePos+1);verseTrail.push(currentVerse);versePos=verseTrail.length-1;put('gita-verse-trail',verseTrail)}const seen=get('gita-seen-verses',[]);if(!seen.includes(currentVerse)){seen.push(currentVerse);put('gita-seen-verses',seen)}}updateNavButtons()}function showMoment(i,record=true){currentMoment=(i+moments.length)%moments.length;const m=moments[currentMoment];$('momentType').textContent=m.type;$('momentText').textContent=m.text;$('momentLesson').textContent=m.lesson;$('momentLesson').style.fontWeight='normal';$('momentLesson').innerHTML='<strong>Reflection:</strong> '+m.lesson.replace(/^(Takeaway: |Try this today: |Modern reflection: |Gita perspective: )/,'');const r=document.createElement('div');r.className='reference';r.textContent=m.ref;$('momentLesson').appendChild(r);if(record){if(momentTrail[momentPos]!==currentMoment){momentTrail=momentTrail.slice(0,momentPos+1);momentTrail.push(currentMoment);momentPos=momentTrail.length-1;put('gita-moment-trail',momentTrail)}const seen=get('gita-seen-moments',[]);if(!seen.includes(currentMoment)){seen.push(currentMoment);put('gita-seen-moments',seen)}}updateNavButtons()}function updateSaved(){const a=get('gita-favs',[]);$('savedCount').textContent=a.length?`${a.length} item${a.length===1?'':'s'} saved for later.`:'No saved verses yet. Keep what speaks to you.';$('progressBar').style.width=Math.min(100,get('gita-journey',0)*5)+'%';$('journeyText').textContent=`${get('gita-journey',0)} wisdom moments opened on this device.`}
-function modal(content){$('modalContent').innerHTML='';$('modalContent').appendChild(content);$('modalBackdrop').classList.remove('hidden')}function el(tag,attrs={},text=''){const n=document.createElement(tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n}function openChapters(){const box=el('div');box.append(el('h2',{},'The 18 chapters'));box.append(el('p',{},'A simple guide to the themes. Chapter summaries are introductory, not a substitute for reading the text.'));const list=el('div',{class:'chapter-list'});chapters.forEach((c,i)=>{const b=el('button',{class:'chapter'},'');b.innerHTML=`<strong>CHAPTER ${i+1}</strong>${c}`;b.onclick=()=>{const detail=el('div');detail.append(el('h2',{},`Chapter ${i+1}: ${c}`)); detail.append(el('p',{},`Chapter ${i + 1} of 18`)); detail.append(el('p',{},chapterSummaries[i] || 'Summary not available for this chapter.')); detail.append(el('p',{},'Reflection: What question does this chapter explore, and what idea could you apply thoughtfully in daily life? This is a concise thematic summary, not a verse-by-verse translation.'));const back=el('button',{class:'btn'},'Back to chapters');back.onclick=openChapters;detail.append(back);modal(detail)};list.append(b)});box.append(list);modal(box)}function openDiary(prefill=''){const box=el('div');box.append(el('h2',{},'Reflection diary'));box.append(el('p',{},'Your notes are stored in this browser on this device. They are not uploaded to a server in this prototype.'));const lab=el('label',{class:'field-label'},'Date');box.append(lab);const date=el('input',{class:'field',type:'date',value:new Date().toISOString().slice(0,10)});box.append(date);box.append(el('label',{class:'field-label'},'Your reflection'));const ta=el('textarea',{class:'field',placeholder:'What is on your mind today?'});ta.value=prefill;box.append(ta);const save=el('button',{class:'btn primary'},'Save reflection');save.style.marginTop='14px';save.onclick=()=>{const entries=get('gita-diary',[]);entries.unshift({date:date.value,text:ta.value.trim()});put('gita-diary',entries.slice(0,100));put('gita-journey',get('gita-journey',0)+1);updateSaved();toast('Reflection saved on this device');$('modalBackdrop').classList.add('hidden')};box.append(save);const old=get('gita-diary',[]);if(old.length){box.append(el('h3',{},'Previous reflections'));old.slice(0,5).forEach(x=>{const p=el('p');p.innerHTML=`<span class="pill">${x.date}</span><br>`;p.append(el('span',{},x.text));box.append(p)})}modal(box)}function openFavs(){const box=el('div');box.append(el('h2',{},'Saved wisdom'));const favs=get('gita-favs',[]);if(!favs.length)box.append(el('p',{},'Nothing saved yet. Tap “Save wisdom” on a verse you want to keep.'));favs.forEach((v,i)=>{const c=el('div',{class:'card'});c.style.margin='10px 0';c.append(el('div',{class:'verse'},v.sanskrit));c.append(el('p',{},v.meaning));c.append(el('div',{class:'reference'},v.ref));const rm=el('button',{class:'btn'},'Remove');rm.onclick=()=>{const a=get('gita-favs',[]);a.splice(i,1);put('gita-favs',a);updateSaved();openFavs()};c.append(rm);box.append(c)});modal(box)}
+function modal(content){$('modalContent').innerHTML='';$('modalContent').appendChild(content);$('modalBackdrop').classList.remove('hidden')}function el(tag,attrs={},text=''){const n=document.createElement(tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n}
+function openWisdomChallenge() {
+  let questionIndex = 0;
+  let score = 0;
+  let answered = false;
+
+  const box = el('div');
+  const progress = el('div', { class: 'reference' });
+  const heading = el('h2', {}, 'Wisdom Challenge');
+  const questionText = el('p');
+  const optionsBox = el('div');
+  const feedback = el('div');
+  const nextButton = el('button', { class: 'btn primary' }, 'Next question →');
+
+  nextButton.style.marginTop = '14px';
+  nextButton.classList.add('hidden');
+
+  box.append(heading, progress, questionText, optionsBox, feedback, nextButton);
+
+  function renderQuestion() {
+    answered = false;
+    const q = quizQuestions[questionIndex];
+
+    progress.textContent =
+      `Question ${questionIndex + 1} of ${quizQuestions.length} · Score: ${score}`;
+
+    questionText.textContent = q.question;
+    optionsBox.innerHTML = '';
+    feedback.innerHTML = '';
+    nextButton.classList.add('hidden');
+    nextButton.textContent =
+      questionIndex === quizQuestions.length - 1
+        ? 'View results →'
+        : 'Next question →';
+
+    q.options.forEach((option, index) => {
+      const button = el('button', { class: 'chapter' }, option);
+      button.style.display = 'block';
+      button.style.width = '100%';
+      button.style.margin = '8px 0';
+      button.style.padding = '13px';
+
+      button.onclick = () => {
+        if (answered) return;
+        answered = true;
+
+        const correct = index === q.answer;
+        if (correct) score++;
+
+        Array.from(optionsBox.children).forEach((b, i) => {
+          b.disabled = true;
+          if (i === q.answer) {
+            b.style.borderColor = '#e8c777';
+          } else if (i === index && !correct) {
+            b.style.borderColor = '#d9a6a9';
+          }
+        });
+
+        const result = el(
+          'h3',
+          {},
+          correct ? 'Correct! ✓' : 'Not quite — keep learning.'
+        );
+
+        const explanation = el('p', {}, q.explanation);
+        const reference = el('div', { class: 'reference' }, q.reference);
+
+        feedback.append(result, explanation, reference);
+        nextButton.classList.remove('hidden');
+      };
+
+      optionsBox.append(button);
+    });
+  }
+
+  nextButton.onclick = () => {
+    if (!answered) return;
+
+    questionIndex++;
+
+    if (questionIndex >= quizQuestions.length) {
+      box.innerHTML = '';
+      box.append(el('h2', {}, 'Challenge complete!'));
+
+      box.append(
+        el('p', {}, `Your score: ${score} out of ${quizQuestions.length}`)
+      );
+
+      let message = 'Good effort. Revisit the explanations and try again.';
+      if (score === quizQuestions.length) {
+        message = 'Excellent! You answered every question correctly.';
+      } else if (score >= 3) {
+        message = 'Good work! Review the explanations to strengthen your understanding.';
+      }
+
+      box.append(el('p', {}, message));
+
+      const retry = el('button', { class: 'btn primary' }, 'Try again ↻');
+      retry.onclick = openWisdomChallenge;
+      box.append(retry);
+
+      const close = el('button', { class: 'btn' }, 'Close');
+      close.style.marginLeft = '8px';
+      close.onclick = () => $('modalBackdrop').classList.add('hidden');
+      box.append(close);
+
+      return;
+    }
+
+    renderQuestion();
+  };
+
+  renderQuestion();
+  modal(box);
+}
+function openChapters(){const box=el('div');box.append(el('h2',{},'The 18 chapters'));box.append(el('p',{},'A simple guide to the themes. Chapter summaries are introductory, not a substitute for reading the text.'));const list=el('div',{class:'chapter-list'});chapters.forEach((c,i)=>{const b=el('button',{class:'chapter'},'');b.innerHTML=`<strong>CHAPTER ${i+1}</strong>${c}`;b.onclick=()=>{const detail=el('div');detail.append(el('h2',{},`Chapter ${i+1}: ${c}`)); detail.append(el('p',{},`Chapter ${i + 1} of 18`)); detail.append(el('p',{},chapterSummaries[i] || 'Summary not available for this chapter.')); detail.append(el('p',{},'Reflection: What question does this chapter explore, and what idea could you apply thoughtfully in daily life? This is a concise thematic summary, not a verse-by-verse translation.'));const back=el('button',{class:'btn'},'Back to chapters');back.onclick=openChapters;detail.append(back);modal(detail)};list.append(b)});box.append(list);modal(box)}function openDiary(prefill=''){const box=el('div');box.append(el('h2',{},'Reflection diary'));box.append(el('p',{},'Your notes are stored in this browser on this device. They are not uploaded to a server in this prototype.'));const lab=el('label',{class:'field-label'},'Date');box.append(lab);const date=el('input',{class:'field',type:'date',value:new Date().toISOString().slice(0,10)});box.append(date);box.append(el('label',{class:'field-label'},'Your reflection'));const ta=el('textarea',{class:'field',placeholder:'What is on your mind today?'});ta.value=prefill;box.append(ta);const save=el('button',{class:'btn primary'},'Save reflection');save.style.marginTop='14px';save.onclick=()=>{const entries=get('gita-diary',[]);entries.unshift({date:date.value,text:ta.value.trim()});put('gita-diary',entries.slice(0,100));put('gita-journey',get('gita-journey',0)+1);updateSaved();toast('Reflection saved on this device');$('modalBackdrop').classList.add('hidden')};box.append(save);const old=get('gita-diary',[]);if(old.length){box.append(el('h3',{},'Previous reflections'));old.slice(0,5).forEach(x=>{const p=el('p');p.innerHTML=`<span class="pill">${x.date}</span><br>`;p.append(el('span',{},x.text));box.append(p)})}modal(box)}function openFavs(){const box=el('div');box.append(el('h2',{},'Saved wisdom'));const favs=get('gita-favs',[]);if(!favs.length)box.append(el('p',{},'Nothing saved yet. Tap “Save wisdom” on a verse you want to keep.'));favs.forEach((v,i)=>{const c=el('div',{class:'card'});c.style.margin='10px 0';c.append(el('div',{class:'verse'},v.sanskrit));c.append(el('p',{},v.meaning));c.append(el('div',{class:'reference'},v.ref));const rm=el('button',{class:'btn'},'Remove');rm.onclick=()=>{const a=get('gita-favs',[]);a.splice(i,1);put('gita-favs',a);updateSaved();openFavs()};c.append(rm);box.append(c)});modal(box)}
 $('anotherVerse').onclick=()=>{const seen=get('gita-seen-verses',[]);let choices=verses.map((_,i)=>i).filter(i=>!seen.includes(i));if(!choices.length){put('gita-seen-verses',[currentVerse]);choices=verses.map((_,i)=>i).filter(i=>i!==currentVerse);toast('You’ve seen all wisdom cards. Starting a fresh cycle.')}showVerse(choices[0]);put('gita-journey',get('gita-journey',0)+1);updateSaved()};$('previousVerse').onclick=()=>{if(versePos>0){versePos--;currentVerse=verseTrail[versePos];showVerse(currentVerse,false);updateNavButtons()}};$('verseHistory').onclick=()=>openHistory('verses');$('revealHero').onclick=()=>$('anotherVerse').click();$('momentHero').onclick=()=>$('nextMoment').click();$('nextMoment').onclick=()=>{const seen=get('gita-seen-moments',[]);let choices=moments.map((_,i)=>i).filter(i=>!seen.includes(i));if(!choices.length){put('gita-seen-moments',[currentMoment]);choices=moments.map((_,i)=>i).filter(i=>i!==currentMoment);toast('You’ve seen all Gita Moments. Starting a fresh cycle.')}showMoment(choices[0]);put('gita-journey',get('gita-journey',0)+1);updateSaved()};$('previousMoment').onclick=()=>{if(momentPos>0){momentPos--;currentMoment=momentTrail[momentPos];showMoment(currentMoment,false);updateNavButtons()}};$('momentHistory').onclick=()=>openHistory('moments');$('saveVerse').onclick=()=>{const v=verses[currentVerse],a=get('gita-favs',[]);if(!a.some(x=>x.ref===v.ref&&x.sanskrit===v.sanskrit)){a.unshift(v);put('gita-favs',a);toast('Saved to your favourites')}else toast('Already saved');updateSaved()};$('copyVerse').onclick=async()=>{const v=verses[currentVerse],text=`${v.sanskrit}\n${v.meaning}\n${v.ref}`;try{await navigator.clipboard.writeText(text);toast('Verse copied')}catch{toast('Copy is unavailable in this browser')}};
-document.querySelectorAll('[data-mood]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-mood]').forEach(x=>x.classList.remove('active'));b.classList.add('active');const m=moods[b.dataset.mood];$('moodLabel').textContent=m.label;$('moodTitle').textContent=m.title;$('moodMeaning').textContent=m.meaning;$('moodRef').textContent=m.ref;$('moodResult').classList.remove('hidden')});$('chaptersBtn').onclick=openChapters;$('favoritesBtn').onclick=openFavs;$('diaryBtn').onclick=()=>openDiary();$('writePrompt').onclick=()=>openDiary('What is one thing I can do today with sincerity, without letting the outcome control my peace?');$('profileBtn').onclick=()=>{const box=el('div');box.append(el('h2',{},'Your space'));box.append(el('p',{},'This first prototype keeps favourites and diary notes in this browser. Account backup, private messaging, birthday unlocks, and Telegram approval are not active yet; those require secure backend work.'));const name=el('input',{class:'field',placeholder:'Preferred name (optional)',value:get('gita-name','')});box.append(el('label',{class:'field-label'},'What should we call you?'));box.append(name);const save=el('button',{class:'btn primary'},'Save on this device');save.style.marginTop='12px';save.onclick=()=>{put('gita-name',name.value.trim());toast('Preference saved on this device');$('modalBackdrop').classList.add('hidden')};box.append(save);modal(box)};$('closeModal').onclick=()=>$('modalBackdrop').classList.add('hidden');$('modalBackdrop').onclick=e=>{if(e.target===$('modalBackdrop'))$('modalBackdrop').classList.add('hidden')};function updateNavButtons(){$('previousVerse').disabled=versePos<=0;$('previousMoment').disabled=momentPos<=0}function openHistory(kind){const isVerse=kind==='verses',trail=isVerse?verseTrail:momentTrail,items=isVerse?verses:moments;const box=el('div');box.append(el('h2',{},isVerse?'Wisdom history':'Gita Moments history'));if(!trail.length)box.append(el('p',{},'Nothing viewed yet.'));[...trail].reverse().forEach((idx,order)=>{const item=items[idx];const b=el('button',{class:'chapter'},isVerse?item.title:item.type);b.style.display='block';b.style.width='100%';b.style.margin='8px 0';b.onclick=()=>{const at=trail.length-1-order;if(isVerse){versePos=at;currentVerse=trail[at];showVerse(currentVerse,false)}else{momentPos=at;currentMoment=trail[at];showMoment(currentMoment,false)}updateNavButtons();$('modalBackdrop').classList.add('hidden')};box.append(b)});modal(box)}showVerse(verseTrail[versePos]??0,false);showMoment(momentTrail[momentPos]??0,false);const sv=get('gita-seen-verses',[]);if(!sv.includes(currentVerse)){sv.push(currentVerse);put('gita-seen-verses',sv)}const sm=get('gita-seen-moments',[]);if(!sm.includes(currentMoment)){sm.push(currentMoment);put('gita-seen-moments',sm)}updateNavButtons();updateSaved();if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+document.querySelectorAll('[data-mood]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-mood]').forEach(x=>x.classList.remove('active'));b.classList.add('active');const m=moods[b.dataset.mood];$('moodLabel').textContent=m.label;$('moodTitle').textContent=m.title;$('moodMeaning').textContent=m.meaning;$('moodRef').textContent=m.ref;$('moodResult').classList.remove('hidden')});$('chaptersBtn').onclick=openChapters;$('wisdomChallengeBtn').onclick = openWisdomChallenge;$('favoritesBtn').onclick=openFavs;$('diaryBtn').onclick=()=>openDiary();$('writePrompt').onclick=()=>openDiary('What is one thing I can do today with sincerity, without letting the outcome control my peace?');$('profileBtn').onclick=()=>{const box=el('div');box.append(el('h2',{},'Your space'));box.append(el('p',{},'This first prototype keeps favourites and diary notes in this browser. Account backup, private messaging, birthday unlocks, and Telegram approval are not active yet; those require secure backend work.'));const name=el('input',{class:'field',placeholder:'Preferred name (optional)',value:get('gita-name','')});box.append(el('label',{class:'field-label'},'What should we call you?'));box.append(name);const save=el('button',{class:'btn primary'},'Save on this device');save.style.marginTop='12px';save.onclick=()=>{put('gita-name',name.value.trim());toast('Preference saved on this device');$('modalBackdrop').classList.add('hidden')};box.append(save);modal(box)};$('closeModal').onclick=()=>$('modalBackdrop').classList.add('hidden');$('modalBackdrop').onclick=e=>{if(e.target===$('modalBackdrop'))$('modalBackdrop').classList.add('hidden')};function updateNavButtons(){$('previousVerse').disabled=versePos<=0;$('previousMoment').disabled=momentPos<=0}function openHistory(kind){const isVerse=kind==='verses',trail=isVerse?verseTrail:momentTrail,items=isVerse?verses:moments;const box=el('div');box.append(el('h2',{},isVerse?'Wisdom history':'Gita Moments history'));if(!trail.length)box.append(el('p',{},'Nothing viewed yet.'));[...trail].reverse().forEach((idx,order)=>{const item=items[idx];const b=el('button',{class:'chapter'},isVerse?item.title:item.type);b.style.display='block';b.style.width='100%';b.style.margin='8px 0';b.onclick=()=>{const at=trail.length-1-order;if(isVerse){versePos=at;currentVerse=trail[at];showVerse(currentVerse,false)}else{momentPos=at;currentMoment=trail[at];showMoment(currentMoment,false)}updateNavButtons();$('modalBackdrop').classList.add('hidden')};box.append(b)});modal(box)}showVerse(verseTrail[versePos]??0,false);showMoment(momentTrail[momentPos]??0,false);const sv=get('gita-seen-verses',[]);if(!sv.includes(currentVerse)){sv.push(currentVerse);put('gita-seen-verses',sv)}const sm=get('gita-seen-moments',[]);if(!sm.includes(currentMoment)){sm.push(currentMoment);put('gita-seen-moments',sm)}updateNavButtons();updateSaved();if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   window.addEventListener('load', async () => {
     try {
       const registrations = await navigator.serviceWorker.getRegistrations();
