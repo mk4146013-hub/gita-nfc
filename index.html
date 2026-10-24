@@ -72,7 +72,7 @@ button,.btn,.field,input,textarea,select{color:inherit}
   <div class="card"><div class="card-kicker">Private ritual</div><h3>🌙 Night Reflection Mode</h3><p>Switch to a quieter, darker reading view for evening reflection.</p><div class="actions"><button class="btn" id="nightModeBtn">Toggle night mode</button><button class="btn ghost" id="nightPromptBtn">Evening prompt</button></div></div>
   <div class="card"><div class="card-kicker">A personal surprise</div><h3>💌 A Personal Note</h3><p>A small personal message, just for you.</p><div class="hidden" id="birthdayCodeWrap"><label class="field-label" for="birthdayCode">Unlock code</label><input class="mini-input" id="birthdayCode" placeholder="Enter your code" autocomplete="off"></div><div class="actions"><button class="btn primary" id="birthdayUnlockBtn">Open note</button></div><p class="feature-note">The note and code are stored in this browser only; this is not secure private access.</p></div>
   <div class="card"><div class="card-kicker">Explore the unknown</div><h3>🎁 Mystery Chest</h3><p>Solve a four-symbol puzzle to reveal a hidden Gita reflection.</p><div class="actions"><button class="btn primary" id="mysteryChestBtn">Open mystery chest</button></div><p class="feature-note">Three wrong attempts lock this puzzle until tomorrow on this browser. This is a game lock, not server security.</p></div>
-  <div class="card"><div class="card-kicker">Take wisdom with you</div><h3>📲 Gita Status Studio</h3><p>Create a vertical shareable wisdom card with Sanskrit, Telugu meaning, reflection and reference.</p><div class="actions"><button class="btn primary" id="statusStudioBtn">Create status image</button><button class="btn" id="speakWisdomBtn">🔊 Read wisdom aloud</button></div></div>
+  <div class="card"><div class="card-kicker">Take wisdom with you</div><h3>📲 Gita Status Studio</h3><p>Create a vertical shareable wisdom card with Sanskrit, Telugu meaning, reflection and reference.</p><div class="actions"><button class="btn primary" id="statusStudioBtn">Create status image</button></div></div>
   <div class="card"><div class="card-kicker">Read anywhere</div><h3>📦 Offline Wisdom Pack</h3><p>Save the current wisdom set in this browser so the text can be opened without a connection.</p><div class="actions"><button class="btn primary" id="saveOfflinePackBtn">Save offline pack</button><button class="btn" id="openOfflinePackBtn">Open saved pack</button></div><p class="feature-note" id="offlinePackStatus">No offline pack saved yet.</p></div>
 </section>
 <section class="card" style="margin-top:14px"><div class="card-kicker">Personal Gita Journey</div><h3>🪷 Your path so far</h3><p id="journeySummary">Your reflections, missions and wisdom moments will build your journey on this device.</p><div class="actions"><button class="btn" id="journeySummaryBtn">View journey summary</button><button class="btn" id="exportJourneyBtn">Export my data</button></div><p class="feature-note">Progress is stored locally; it does not sync across devices in this prototype.</p></section>
@@ -542,48 +542,59 @@ function openStatusStudio(){
  const controls=el('div',{class:'studio-controls'});const themeLabel=el('label',{},'Artwork style');const theme=el('select',{class:'field'});[['classic','Classic gold'],['chariot','Krishna–Arjuna chariot'],['nature','Peaceful nature']].forEach(([v,t])=>{const o=el('option',{value:v},t);theme.append(o)});themeLabel.append(theme);
  const nameLabel=el('label',{},'Signature name (optional)');const savedName=get('gita-name','');const name=el('input',{class:'field',placeholder:'Use Your space name or enter another',value:savedName});nameLabel.append(name);controls.append(themeLabel,nameLabel);box.append(controls);
  const canvas=el('canvas',{class:'status-canvas-preview',width:'540',height:'960'});canvas.setAttribute('aria-label','Live preview of Gita status image');box.append(canvas);
- const v=verses[currentVerse];function draw(){const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;const palettes={classic:['#17274a','#080f22'],chariot:['#35203c','#10182e'],nature:['#123b39','#081d27']};const colors=palettes[theme.value]||palettes.classic;const grad=ctx.createLinearGradient(0,0,w,h);grad.addColorStop(0,colors[0]);grad.addColorStop(1,colors[1]);ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);ctx.strokeStyle='#e8c777';ctx.lineWidth=2;ctx.strokeRect(28,28,w-56,h-56);ctx.textAlign='center';ctx.fillStyle='#e8c777';ctx.font='bold 19px Georgia';ctx.fillText('GITA MOMENTS',w/2,82);
+ const v=verses[currentVerse];function draw(){
+ const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+ const palettes={classic:['#17274a','#080f22'],chariot:['#35203c','#10182e'],nature:['#123b39','#081d27']};
+ const colors=palettes[theme.value]||palettes.classic;
+ const grad=ctx.createLinearGradient(0,0,w,h);grad.addColorStop(0,colors[0]);grad.addColorStop(1,colors[1]);ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
+ // Subtle stars and a decorative double frame make every style visibly illustrated.
+ ctx.save();for(let i=0;i<44;i++){const x=42+((i*83)%456),y=105+((i*47)%225);ctx.globalAlpha=.22+(i%4)*.1;ctx.fillStyle='#f8e7b3';ctx.beginPath();ctx.arc(x,y,1+(i%3)*.45,0,Math.PI*2);ctx.fill()}ctx.restore();
+ ctx.strokeStyle='#e8c777';ctx.lineWidth=2;ctx.strokeRect(28,28,w-56,h-56);ctx.strokeStyle='#e8c77755';ctx.lineWidth=1;ctx.strokeRect(39,39,w-78,h-78);
+ ctx.textAlign='center';ctx.fillStyle='#e8c777';ctx.font='bold 19px Georgia';ctx.fillText('GITA MOMENTS',w/2,82);
  if(theme.value==='chariot'){
-   // Gold halo, chariot wheels, horses and a simple Krishna–Arjuna silhouette drawn as vector shapes.
-   ctx.save();ctx.globalAlpha=.9;ctx.strokeStyle='#e8c777';ctx.fillStyle='#e8c777';ctx.lineWidth=4;
-   ctx.beginPath();ctx.arc(w/2,190,66,0,Math.PI*2);ctx.stroke();
-   ctx.beginPath();ctx.arc(w/2-78,286,29,0,Math.PI*2);ctx.arc(w/2+78,286,29,0,Math.PI*2);ctx.stroke();
-   ctx.beginPath();ctx.moveTo(w/2-120,255);ctx.lineTo(w/2+120,255);ctx.lineTo(w/2+100,220);ctx.lineTo(w/2-90,220);ctx.closePath();ctx.fill();
-   ctx.beginPath();ctx.arc(w/2-28,151,15,0,Math.PI*2);ctx.arc(w/2+24,151,15,0,Math.PI*2);ctx.fill();
-   ctx.fillRect(w/2-43,168,30,48);ctx.fillRect(w/2+9,168,30,48);
-   ctx.beginPath();ctx.moveTo(w/2-50,180);ctx.lineTo(w/2-82,207);ctx.lineTo(w/2-104,194);ctx.moveTo(w/2+40,180);ctx.lineTo(w/2+72,207);ctx.stroke();
-   ctx.beginPath();ctx.moveTo(w/2-110,220);ctx.lineTo(w/2+118,220);ctx.stroke();ctx.restore();
- }else if(theme.value==='nature'){ctx.save();ctx.globalAlpha=.55;ctx.strokeStyle='#e8c777';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(w/2,260);ctx.bezierCurveTo(w/2-20,215,w/2-90,220,w/2-65,170);ctx.bezierCurveTo(w/2-10,170,w/2,205,w/2,260);ctx.bezierCurveTo(w/2+20,215,w/2+90,220,w/2+65,170);ctx.bezierCurveTo(w/2+10,170,w/2,205,w/2,260);ctx.stroke();ctx.beginPath();ctx.arc(w/2,210,45,0,Math.PI*2);ctx.stroke();ctx.restore()}else{ctx.strokeStyle='#e8c77777';ctx.beginPath();ctx.arc(w/2,205,75,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#e8c777';ctx.font='70px Georgia';ctx.fillText('ॐ',w/2,230)}
- ctx.fillStyle='#f8e7b3';ctx.font='24px Georgia';wrapCanvas(ctx,v.sanskrit,w/2,370,420,38);ctx.fillStyle='#fff9eb';ctx.font='20px "Noto Serif Telugu",Georgia';wrapCanvas(ctx,v.meaning,w/2,560,420,34);ctx.fillStyle='#e8c777';ctx.font='16px Georgia';wrapCanvas(ctx,v.ref,w/2,760,420,26);ctx.fillStyle='#c3c8d5';ctx.font='14px Georgia';ctx.fillText('Pause • Reflect • Move forward',w/2,875);const sig=name.value.trim();if(sig){ctx.fillStyle='#f8e7b3';ctx.font='16px Georgia';ctx.fillText(`With care, ${sig}`.slice(0,55),w/2,910)}}
+   // Illustrated Kurukshetra scene: radiant sun, distant horizon, chariot, horses and two figures.
+   const sky=ctx.createLinearGradient(0,105,0,340);sky.addColorStop(0,'#f0bd6b22');sky.addColorStop(1,'#d49a4b00');ctx.fillStyle=sky;ctx.fillRect(48,105,444,240);
+   ctx.save();ctx.shadowColor='#f5c96b';ctx.shadowBlur=28;ctx.fillStyle='#f6cf7d';ctx.globalAlpha=.8;ctx.beginPath();ctx.arc(w/2,190,42,0,Math.PI*2);ctx.fill();ctx.restore();
+   ctx.strokeStyle='#f8d98d';ctx.globalAlpha=.8;ctx.lineWidth=2;for(let r=56;r<=82;r+=13){ctx.beginPath();ctx.arc(w/2,190,r,Math.PI*1.12,Math.PI*1.88);ctx.stroke()}
+   ctx.fillStyle='#151c35';ctx.beginPath();ctx.moveTo(48,315);ctx.quadraticCurveTo(145,275,220,313);ctx.quadraticCurveTo(340,270,492,312);ctx.lineTo(492,350);ctx.lineTo(48,350);ctx.fill();
+   // chariot wheels with spokes
+   ctx.strokeStyle='#e8c777';ctx.lineWidth=5;[190,350].forEach(x=>{ctx.beginPath();ctx.arc(x,300,31,0,Math.PI*2);ctx.stroke();for(let a=0;a<8;a++){const t=a*Math.PI/4;ctx.beginPath();ctx.moveTo(x,300);ctx.lineTo(x+Math.cos(t)*27,300+Math.sin(t)*27);ctx.stroke()}});
+   ctx.fillStyle='#c99b4e';ctx.beginPath();ctx.moveTo(165,245);ctx.lineTo(375,245);ctx.lineTo(350,275);ctx.lineTo(190,275);ctx.closePath();ctx.fill();ctx.fillRect(190,224,160,18);
+   // Two distinct figures in the chariot
+   ctx.fillStyle='#17182e';ctx.beginPath();ctx.arc(245,197,15,0,Math.PI*2);ctx.fill();ctx.fillRect(231,213,29,43);ctx.beginPath();ctx.moveTo(235,222);ctx.lineTo(208,242);ctx.lineTo(225,247);ctx.moveTo(254,221);ctx.lineTo(278,239);ctx.stroke();
+   ctx.fillStyle='#e8c777';ctx.beginPath();ctx.arc(298,190,15,0,Math.PI*2);ctx.fill();ctx.fillRect(284,206,29,49);ctx.strokeStyle='#e8c777';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(289,217);ctx.lineTo(268,238);ctx.moveTo(306,216);ctx.lineTo(326,236);ctx.stroke();
+   // Horses facing forward, drawn as clear silhouettes
+   ctx.fillStyle='#d9b56e';[-1,0,1].forEach((n)=>{const x=250+n*55;ctx.beginPath();ctx.ellipse(x,286,22,11,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(x+10,282);ctx.lineTo(x+18,265);ctx.lineTo(x+29,269);ctx.lineTo(x+25,285);ctx.closePath();ctx.fill();ctx.fillRect(x-12,292,4,17);ctx.fillRect(x+7,292,4,17)});
+   ctx.strokeStyle='#f8e7b3';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(300,252);ctx.lineTo(395,310);ctx.stroke();ctx.globalAlpha=1;
+ }else if(theme.value==='nature'){
+   // Peaceful sunrise over layered hills, river and a Bodhi tree.
+   ctx.save();ctx.shadowColor='#f5d98a';ctx.shadowBlur=24;ctx.fillStyle='#f6d58a';ctx.beginPath();ctx.arc(270,215,48,0,Math.PI*2);ctx.fill();ctx.restore();
+   ctx.fillStyle='#254f4b';ctx.beginPath();ctx.moveTo(48,292);ctx.quadraticCurveTo(130,215,212,290);ctx.quadraticCurveTo(330,180,492,287);ctx.lineTo(492,350);ctx.lineTo(48,350);ctx.fill();
+   ctx.fillStyle='#1c413f';ctx.beginPath();ctx.moveTo(48,320);ctx.quadraticCurveTo(160,260,265,322);ctx.quadraticCurveTo(370,250,492,315);ctx.lineTo(492,350);ctx.lineTo(48,350);ctx.fill();
+   ctx.fillStyle='#7ab4a1';ctx.globalAlpha=.52;ctx.beginPath();ctx.moveTo(185,350);ctx.quadraticCurveTo(280,322,350,350);ctx.quadraticCurveTo(290,382,230,402);ctx.quadraticCurveTo(320,382,375,420);ctx.lineTo(180,420);ctx.closePath();ctx.fill();ctx.globalAlpha=1;
+   // Bodhi tree at left with visible trunk, branches and leaves
+   ctx.strokeStyle='#d6b16c';ctx.lineWidth=9;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(120,330);ctx.lineTo(126,245);ctx.moveTo(124,275);ctx.lineTo(93,243);ctx.moveTo(126,264);ctx.lineTo(153,230);ctx.stroke();
+   ctx.fillStyle='#8fc5a1';[[105,231,27],[139,218,30],[91,253,23],[155,247,24],[123,196,27],[171,233,19]].forEach(([x,y,r])=>{ctx.beginPath();ctx.ellipse(x,y,r,r*.72,-.4,0,Math.PI*2);ctx.fill()});
+   ctx.strokeStyle='#e8c77788';ctx.lineWidth=2;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(215+i*20,390+i*9);ctx.quadraticCurveTo(300,380+i*8,360+i*15,400+i*9);ctx.stroke()}
+ }else{
+   // Classic gold lotus mandala, with layered petals and a glowing Om symbol.
+   ctx.save();ctx.translate(w/2,218);ctx.strokeStyle='#e8c777';ctx.lineWidth=2;ctx.globalAlpha=.9;
+   [66,84,104].forEach(r=>{ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.stroke()});
+   for(let i=0;i<12;i++){ctx.rotate(Math.PI/6);ctx.beginPath();ctx.ellipse(0,-57,15,37,0,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(0,-20);ctx.lineTo(0,-94);ctx.stroke()}
+   ctx.globalAlpha=1;ctx.fillStyle='#f8e7b3';ctx.font='68px Georgia';ctx.textBaseline='middle';ctx.fillText('ॐ',0,0);ctx.restore();ctx.textBaseline='alphabetic';
+ }
+ // Content panel with a soft backing keeps text readable over all artwork.
+ ctx.fillStyle='#080f22b8';ctx.fillRect(55,365,430,400);
+ ctx.strokeStyle='#e8c77766';ctx.lineWidth=1;ctx.strokeRect(55,365,430,400);
+ ctx.fillStyle='#f8e7b3';ctx.font='24px Georgia';wrapCanvas(ctx,v.sanskrit,w/2,410,385,38);
+ ctx.fillStyle='#fff9eb';ctx.font='20px "Noto Serif Telugu",Georgia';wrapCanvas(ctx,v.meaning,w/2,565,385,34);
+ ctx.fillStyle='#e8c777';ctx.font='16px Georgia';wrapCanvas(ctx,v.ref,w/2,745,385,26);
+ ctx.fillStyle='#c3c8d5';ctx.font='14px Georgia';ctx.fillText('Pause • Reflect • Move forward',w/2,855);
+ const sig=name.value.trim();if(sig){ctx.fillStyle='#f8e7b3';ctx.font='16px Georgia';ctx.fillText(`With care, ${sig}`.slice(0,55),w/2,900)}
+ }
  theme.onchange=draw;name.oninput=draw;draw();const download=el('button',{class:'btn primary'},'Download PNG');download.onclick=()=>{draw();const a=el('a');a.download='gita-moments-status.png';a.href=canvas.toDataURL('image/png');a.click()};box.append(download);modal(box)
 }
 function wrapCanvas(ctx,text,x,y,maxWidth,lineHeight){const words=String(text).split(/\s+/);let line='',yy=y;for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){ctx.fillText(line,x,yy);line=word;yy+=lineHeight}else line=test}if(line)ctx.fillText(line,x,yy)}
-function speakCurrentWisdom(){
- if(!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)){toast('Text-to-speech is not supported in this browser.');return}
- const synth=window.speechSynthesis; synth.cancel();
- const v=verses[currentVerse], voices=synth.getVoices();
- const te=voices.find(x=>/^te(-|$)/i.test(x.lang));
- const hi=voices.find(x=>/^hi(-|$)/i.test(x.lang)) || voices.find(x=>/^sa(-|$)/i.test(x.lang));
- const match=String(v.ref||'').match(/(\d+)\.(\d+)/);
- const words=n=>String(n).split('').map(d=>({'0':'సున్నా','1':'ఒకటి','2':'రెండు','3':'మూడు','4':'నాలుగు','5':'ఐదు','6':'ఆరు','7':'ఏడు','8':'ఎనిమిది','9':'తొమ్మిది'}[d]||d)).join(' ');
- const spokenRef=match?`అధ్యాయం ${words(match[1])}, శ్లోకం ${words(match[2])}`:'భగవద్గీత శ్లోకం';
- const queue=[{text:spokenRef,lang:'te-IN',voice:te},{text:v.sanskrit,lang:hi?'hi-IN':'sa-IN',voice:hi},{text:v.meaning,lang:'te-IN',voice:te}].filter(x=>x.text);
- let i=0,token=0;
- const next=()=>{
-   if(i>=queue.length)return;
-   const item=queue[i++],thisToken=++token,u=new SpeechSynthesisUtterance(item.text);
-   u.lang=item.lang;u.rate=.78;u.pitch=1;if(item.voice)u.voice=item.voice;
-   let advanced=false;const advance=()=>{if(advanced||thisToken!==token)return;advanced=true;setTimeout(next,180)};
-   u.onend=advance;u.onerror=advance;
-   // Some desktop speech engines fail to fire onend; estimate duration as a fallback.
-   const fallback=Math.max(3500,Math.min(18000,item.text.length*95));
-   setTimeout(advance,fallback);
-   synth.speak(u);
- };
- if(!voices.length && synth.onvoiceschanged!==undefined){synth.onvoiceschanged=()=>{};}
- next();toast('Reading chapter and verse, Sanskrit, then Telugu meaning. Sanskrit/Telugu voice quality depends on voices installed in your browser.');
-}
-
 function saveOfflinePack(){const pack={savedAt:new Date().toISOString(),verses,moments,chapters,chapterSummaries};put('gita-offline-pack',pack);$('offlinePackStatus').textContent=`Saved ${verses.length} wisdom cards and ${moments.length} Gita Moments on this device.`;toast('Offline wisdom pack saved')}
 function openOfflinePack(){const pack=get('gita-offline-pack',null);const box=el('div');box.append(el('h2',{},'📦 Offline Wisdom Pack'));if(!pack){box.append(el('p',{},'No pack saved yet. Connect once and choose “Save offline pack”.'));modal(box);return}box.append(el('p',{},`Saved ${pack.verses.length} wisdom cards and ${pack.moments.length} Gita Moments.`));pack.verses.forEach(v=>{box.append(el('h3',{},v.title));box.append(el('p',{},v.sanskrit));box.append(el('p',{},v.meaning));box.append(el('div',{class:'reference'},v.ref))});modal(box)}
 function showJourneySummary(){const box=el('div');box.append(el('h2',{},'Your Personal Gita Journey'));const diary=get('gita-diary',[]),missionDays=get('gita-mission-days',[]);const xp=getQuestionXP().reduce((a,b)=>a+b,0)+get('gita-bonus-xp',0);[`${xp} total XP`,`Wisdom moments opened: ${get('gita-journey',0)}`,`Saved wisdom cards: ${get('gita-favs',[]).length}`,`Reflections written: ${diary.length}`,`Full-mission days: ${missionDays.length}`,`Current streak: ${calculateStreak(missionDays)} day(s)`].forEach(x=>box.append(el('p',{},x)));box.append(el('p',{class:'reference'},'This summary is stored on this device and can be reset if browser data is cleared.'));modal(box)}
@@ -596,7 +607,7 @@ $('nightModeBtn').onclick=()=>{document.body.classList.toggle('night-mode');put(
 if(get('gita-night-mode',false))document.body.classList.add('night-mode');
 $('nightPromptBtn').onclick=()=>openDiary('Evening reflection: What did I learn today, and what can I release before resting?');
 $('birthdayUnlockBtn').onclick=()=>{const wrap=$('birthdayCodeWrap');if(wrap.classList.contains('hidden')){wrap.classList.remove('hidden');$('birthdayUnlockBtn').textContent='Unlock note';$('birthdayCode').focus()}else{openBirthdayLetter()}};
-$('mysteryChestBtn').onclick=openMysteryChest;$('statusStudioBtn').onclick=openStatusStudio;$('speakWisdomBtn').onclick=speakCurrentWisdom;
+$('mysteryChestBtn').onclick=openMysteryChest;$('statusStudioBtn').onclick=openStatusStudio;
 $('saveOfflinePackBtn').onclick=saveOfflinePack;$('openOfflinePackBtn').onclick=openOfflinePack;
 $('journeySummaryBtn').onclick=showJourneySummary;$('exportJourneyBtn').onclick=exportJourney;
 $('revealHero').addEventListener('click',()=>completeMission('wisdom'));
