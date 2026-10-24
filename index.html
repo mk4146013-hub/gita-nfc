@@ -495,4 +495,288 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
     }
   });
 }
-</script></body></html>
+</script>
+<style>
+  .gita-secret-decor {
+    display: inline-block;
+    color: #d4af37;
+    font-size: 20px;
+    opacity: 0.75;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  #gitaSecretTrigger {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9998;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 50%;
+    background: rgba(12, 24, 48, 0.92);
+    color: #d4af37;
+    font-size: 24px;
+    cursor: pointer;
+    transform: rotate(23deg);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #gitaSecretPanel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(4, 10, 24, 0.88);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  #gitaSecretPanel.open {
+    display: flex;
+  }
+
+  .gita-secret-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 26px;
+    border: 1px solid #d4af37;
+    border-radius: 18px;
+    background: #101d38;
+    color: #fff4d0;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .gita-secret-card h2 {
+    color: #e6c76a;
+    margin-top: 0;
+  }
+
+  #gitaSecretClose {
+    margin-top: 16px;
+    padding: 10px 20px;
+    border: 1px solid #d4af37;
+    border-radius: 10px;
+    background: transparent;
+    color: #fff4d0;
+    cursor: pointer;
+  }
+</style>
+
+<!-- Decorative symbols: these do not respond to taps -->
+<div class="gita-secret-decor" aria-hidden="true"
+     style="transform:rotate(-12deg)">✦</div>
+
+<div class="gita-secret-decor" aria-hidden="true"
+     style="transform:rotate(35deg)">✦</div>
+
+<div class="gita-secret-decor" aria-hidden="true"
+     style="transform:rotate(-25deg)">✦</div>
+
+<!-- Only this bottom-right symbol is the secret trigger -->
+<button id="gitaSecretTrigger"
+        type="button"
+        aria-label="Decorative symbol"
+        title="">✦</button>
+
+<div id="gitaSecretPanel" role="dialog"
+     aria-modal="true" aria-labelledby="gitaSecretTitle">
+  <div class="gita-secret-card">
+    <div style="font-size:32px;color:#d4af37">✦</div>
+    <h2 id="gitaSecretTitle">A Little Surprise</h2>
+    <p>A quiet corner, just for a moment of reflection.</p>
+    <button id="gitaSecretClose" type="button">Close</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const trigger = document.getElementById("gitaSecretTrigger");
+  const panel = document.getElementById("gitaSecretPanel");
+  const close = document.getElementById("gitaSecretClose");
+
+  if (!trigger || !panel || !close) return;
+
+  let taps = 0;
+  let resetTimer;
+
+  trigger.addEventListener("click", function () {
+    taps++;
+
+    clearTimeout(resetTimer);
+
+    if (taps >= 4) {
+      taps = 0;
+      panel.classList.add("open");
+      return;
+    }
+
+    // Start a fresh sequence if the next tap takes too long.
+    resetTimer = setTimeout(function () {
+      taps = 0;
+    }, 4000);
+  });
+
+  function closePanel() {
+    panel.classList.remove("open");
+    taps = 0;
+    clearTimeout(resetTimer);
+  }
+
+  close.addEventListener("click", closePanel);
+
+  panel.addEventListener("click", function (event) {
+    if (event.target === panel) closePanel();
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closePanel();
+  });
+})();
+</script>
+
+<style>
+  .gita-secret-decor {
+    display: inline-block;
+    color: #d4af37;
+    font-size: 20px;
+    opacity: 0.75;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  #gitaSecretTrigger {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9998;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 50%;
+    background: rgba(12, 24, 48, 0.92);
+    color: #d4af37;
+    font-size: 24px;
+    cursor: pointer;
+    transform: rotate(23deg);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #gitaSecretPanel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(4, 10, 24, 0.88);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  #gitaSecretPanel.open {
+    display: flex;
+  }
+
+  .gita-secret-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 26px;
+    border: 1px solid #d4af37;
+    border-radius: 18px;
+    background: #101d38;
+    color: #fff4d0;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .gita-secret-card h2 {
+    color: #e6c76a;
+    margin-top: 0;
+  }
+
+  #gitaSecretClose {
+    margin-top: 16px;
+    padding: 10px 20px;
+    border: 1px solid #d4af37;
+    border-radius: 10px;
+    background: transparent;
+    color: #fff4d0;
+    cursor: pointer;
+  }
+</style>
+
+<!-- Decorative symbols: these do not respond to taps -->
+<div class="gita-secret-decor" aria-hidden="true"
+     style="transform:rotate(-12deg)">✦</div>
+
+<div class="gita-secret-decor" aria-hidden="true"
+     style="transform:rotate(35deg)">✦</div>
+
+<div class="gita-secret-decor" aria-hidden="true"
+     style="transform:rotate(-25deg)">✦</div>
+
+<!-- Only this bottom-right symbol is the secret trigger -->
+<button id="gitaSecretTrigger"
+        type="button"
+        aria-label="Decorative symbol"
+        title="">✦</button>
+
+<div id="gitaSecretPanel" role="dialog"
+     aria-modal="true" aria-labelledby="gitaSecretTitle">
+  <div class="gita-secret-card">
+    <div style="font-size:32px;color:#d4af37">✦</div>
+    <h2 id="gitaSecretTitle">A Little Surprise</h2>
+    <p>A quiet corner, just for a moment of reflection.</p>
+    <button id="gitaSecretClose" type="button">Close</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  const trigger = document.getElementById("gitaSecretTrigger");
+  const panel = document.getElementById("gitaSecretPanel");
+  const close = document.getElementById("gitaSecretClose");
+
+  if (!trigger || !panel || !close) return;
+
+  let taps = 0;
+  let resetTimer;
+
+  trigger.addEventListener("click", function () {
+    taps++;
+
+    clearTimeout(resetTimer);
+
+    if (taps >= 4) {
+      taps = 0;
+      panel.classList.add("open");
+      return;
+    }
+
+    // Start a fresh sequence if the next tap takes too long.
+    resetTimer = setTimeout(function () {
+      taps = 0;
+    }, 4000);
+  });
+
+  function closePanel() {
+    panel.classList.remove("open");
+    taps = 0;
+    clearTimeout(resetTimer);
+  }
+
+  close.addEventListener("click", closePanel);
+
+  panel.addEventListener("click", function (event) {
+    if (event.target === panel) closePanel();
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closePanel();
+  });
+})();
+</script>
+</body></html>
