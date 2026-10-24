@@ -28,12 +28,117 @@ const verses=[
 {title:'Steady your mind',sanskrit:'समत्वं योग उच्यते।',meaning:'విజయం, అపజయం రెండింటిలోనూ సమతుల్యంగా ఉండటాన్ని యోగం అంటారు.',ref:'భగవద్గీత 2.48 · excerpt'},
 {title:'Return to the present task',sanskrit:'योगः कर्मसु कौशलम्।',meaning:'పనిని శ్రద్ధతో, నేర్పుతో చేయడంలోనూ యోగం ఉంది.',ref:'భగవద్గీత 2.50 · excerpt'},
 {title:'Peace grows from letting go',sanskrit:'विहाय कामान्यः सर्वान्पुमांश्चरति निःस्पृहः।',meaning:'అనవసరమైన ఆశలకు బానిస కాకుండా, మమకారాన్ని తగ్గిస్తూ జీవించడం అంతరంగ ప్రశాంతతకు దారి చూపుతుంది.',ref:'భగవద్గీత 2.71 · simplified meaning'}];
-const moments=[{type:'A story in two minutes',text:'On the battlefield, Arjuna looked at the people he loved and felt overwhelmed. Before acting, he admitted his confusion to Krishna. The first step toward clarity was not pretending to be fearless—it was asking for guidance.',lesson:'Takeaway: You do not need every answer before you begin. Start by being honest about what is troubling you.',ref:'Context: Bhagavad Gita, Chapters 1–2. Retelling, not a direct quotation.'},{type:'One sloka, one meaning',text:'“उद्धरेदात्मनात्मानं” — lift yourself through your own effort. The Gita reminds us not to become our own enemy through constant self-defeat.',lesson:'Try this today: replace “I can never do this” with “What is one small step I can take?”',ref:'Bhagavad Gita 6.5 · practical reflection'},{type:'Did you know?',text:'Karma Yoga is not simply “working hard.” It points toward doing one’s duty sincerely while loosening the grip on rewards and outcomes.',lesson:'Modern reflection: Give your best to the process; learn from the result without letting it define your entire worth.',ref:'Inspired by Bhagavad Gita 2.47–2.50; modern interpretation'},{type:'Krishna’s answer — a modern reflection',text:'Imagine you have prepared carefully for something important, but you cannot control the final result. What can you control? Your preparation, honesty, effort, and the way you respond.',lesson:'Gita perspective: Focus on your action and responsibility; do not mistake the outcome for the only thing that matters. This is a modern application, not a direct quote.',ref:'Inspired by Bhagavad Gita 2.47'}];
+
+const moments=[
+{
+type:'Arjuna’s dilemma',
+text:'Before the battle, Arjuna sees his relatives, teachers, and friends on both sides. His confidence collapses, and he questions whether fighting is right. His crisis becomes the starting point for a deeper conversation about duty, grief, and discernment.',
+lesson:'Takeaway: When a decision feels overwhelming, pause and examine the conflict honestly instead of pretending you have no doubts.',
+ref:'Bhagavad Gita, Chapter 1; narrative summary'
+},
+{
+type:'Ask for guidance',
+text:'Arjuna does not remain only a confused warrior. In Chapter 2, he asks Krishna to guide him and becomes willing to listen and learn.',
+lesson:'Takeaway: Asking for help can be a responsible first step when your own judgment feels clouded.',
+ref:'Bhagavad Gita 2.7; narrative context'
+},
+{
+type:'Act without being ruled by results',
+text:'Krishna teaches Arjuna to focus on action rather than treating its reward as the only thing that matters. This does not mean ignoring consequences; it means doing your duty without becoming controlled by attachment to results.',
+lesson:'Try this: Prepare carefully, act honestly, and use the outcome as feedback rather than as the sole measure of your worth.',
+ref:'Bhagavad Gita 2.47; practical application'
+},
+{
+type:'Equanimity in success and failure',
+text:'The Gita describes steadiness of mind amid success and failure as an important part of yoga. It asks us to avoid being completely carried away by either victory or disappointment.',
+lesson:'Takeaway: Celebrate progress, learn from setbacks, and try to respond thoughtfully to both.',
+ref:'Bhagavad Gita 2.48; thematic summary'
+},
+{
+type:'Knowledge and action',
+text:'The Gita explores knowledge, disciplined action, and the relationship between them. Wisdom is not merely collecting ideas; it also shapes how a person acts.',
+lesson:'Try this: Choose one principle you believe in and put it into practice through a concrete action today.',
+ref:'Bhagavad Gita, Chapters 3–4; thematic summary'
+},
+{
+type:'Training attention',
+text:'In the meditation teaching, Arjuna raises the difficulty of controlling the restless mind. Krishna acknowledges the challenge and discusses practice and detachment as ways to train it.',
+lesson:'Try this: When attention wanders, gently return to one chosen task. Repeated practice matters more than perfection.',
+ref:'Bhagavad Gita 6.34–6.35; simplified reflection'
+},
+{
+type:'Look beyond appearances',
+text:'The Gita discusses the deeper self and the changing conditions of bodily life. Its teaching invites reflection on the difference between what changes and what we regard as enduring.',
+lesson:'Reflection: Before judging yourself or someone else by one moment, consider the wider person and situation.',
+ref:'Bhagavad Gita, Chapter 2; thematic reflection'
+},
+{
+type:'Devotion and trust',
+text:'The Gita presents devotion as a path involving sincere commitment and a relationship with the Divine. Its discussion is broader than a single ritual or outward display.',
+lesson:'Reflection: Consider how sincerity, humility, and care can shape your daily choices.',
+ref:'Bhagavad Gita, Chapter 12; thematic summary'
+},
+{
+type:'The three gunas',
+text:'The Gita describes sattva, rajas, and tamas as three qualities that influence human tendencies and behaviour. The chapter invites self-observation rather than quick labels for other people.',
+lesson:'Try this: Notice whether clarity, restlessness, or inertia is influencing you right now. Choose one constructive next step.',
+ref:'Bhagavad Gita, Chapter 14; thematic summary'
+},
+{
+type:'Responsibility and choice',
+text:'Arjuna’s conversation with Krishna explores duty, discernment, and the challenge of making difficult choices. The teaching asks him to understand the situation rather than act only from immediate emotion.',
+lesson:'Reflection: Identify your responsibility, consider who may be affected, and choose your next step with care.',
+ref:'Bhagavad Gita, Chapters 2–3; modern application'
+}
+];
+
 const moods={calm:{label:'For a calmer mind',title:'Return to steadiness',meaning:'Pause, breathe slowly, and meet the next task one step at a time. The Gita’s teaching on equanimity invites you to notice feelings without letting every feeling dictate your action.',ref:'Related theme: Bhagavad Gita 2.48'},courage:{label:'For courage',title:'You can take the next step',meaning:'Courage does not require the absence of fear. It can begin with understanding your responsibility and acting with care even while you feel uncertain.',ref:'Related theme: Arjuna’s dilemma, Chapters 1–2'},focus:{label:'For focus',title:'Give your attention to the work',meaning:'Choose one meaningful task and give it your sincere attention. When your mind wanders, gently return to the work instead of judging yourself.',ref:'Related theme: Bhagavad Gita 2.47 and Chapter 6'},hope:{label:'For hope',title:'Your effort still matters',meaning:'A difficult moment is not the whole story of your life. Take one useful step today, and let learning—not self-blame—guide the next one.',ref:'Related theme: Bhagavad Gita 6.5'} };
-const chapters=['Arjuna’s grief','The path of knowledge','Karma Yoga','Wisdom and action','Renunciation','Meditation','Knowledge and realization','The imperishable Brahman','Royal knowledge','Divine manifestations','The universal form','Devotion','Nature and the person','Three qualities of nature','The supreme person','Divine and demonic qualities','Three kinds of faith','Liberation through surrender'];
+
+const chapters=[
+'Arjuna’s grief and confusion',
+'The path of knowledge',
+'Karma Yoga: the path of action',
+'Wisdom through knowledge and action',
+'Renunciation and disciplined action',
+'Meditation and self-mastery',
+'Knowledge and realization',
+'The imperishable Divine',
+'Royal knowledge and royal secret',
+'Divine manifestations',
+'The universal form',
+'The path of devotion',
+'Nature, consciousness, and the self',
+'The three qualities of nature',
+'The supreme person',
+'Divine and demonic qualities',
+'Three kinds of faith',
+'Liberation through surrender'
+];
+
+const chapterSummaries=[
+'Arjuna faces a moral crisis on the battlefield. The chapter introduces his grief, doubt, and reluctance to fight.',
+'Krishna begins teaching about the enduring self, disciplined action, and steadiness amid pleasure and pain.',
+'Krishna explains why action matters and discusses acting according to one’s responsibility without selfish attachment.',
+'The chapter explores wisdom, disciplined action, and different approaches to spiritual understanding.',
+'Krishna compares renunciation with disciplined action and explains how inner detachment matters alongside outward conduct.',
+'The chapter discusses meditation, training the mind, self-discipline, and the challenge of returning to steadiness.',
+'Krishna discusses knowledge of the Divine and the relationship between spiritual understanding and lived experience.',
+'The chapter explores the imperishable reality, remembrance of the Divine, and the passage beyond ordinary material life.',
+'Krishna presents profound spiritual knowledge and describes the Divine relationship with the world and living beings.',
+'The chapter describes the Divine presence expressed through extraordinary manifestations in the world.',
+'Arjuna receives a vision of Krishna’s universal form, revealing a vast and overwhelming vision of cosmic existence.',
+'The chapter explores devotion and describes qualities associated with a devoted and spiritually steady person.',
+'The chapter examines the relationship between the body, consciousness, nature, and the knower of the field.',
+'The chapter explains sattva, rajas, and tamas—the three qualities that influence nature and human behaviour.',
+'Krishna discusses the supreme person and the relationship between the changing world and the eternal.',
+'The chapter contrasts qualities associated with constructive and harmful tendencies and describes their consequences.',
+'The chapter examines how faith, food, worship, discipline, and giving can reflect different qualities of nature.',
+'The concluding chapter revisits action, discernment, duty, renunciation, and surrender, bringing the teaching toward its conclusion.'
+];
+
 let currentVerse=0,currentMoment=0;let verseTrail=get('gita-verse-trail',[0]),versePos=verseTrail.length-1,momentTrail=get('gita-moment-trail',[0]),momentPos=momentTrail.length-1;const $=id=>document.getElementById(id);function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2300)}function get(key,fall){try{return JSON.parse(localStorage.getItem(key))??fall}catch{return fall}}function put(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch{toast('Browser storage is unavailable')}}
 function showVerse(i,record=true){currentVerse=(i+verses.length)%verses.length;const v=verses[currentVerse];$('verseTitle').textContent=v.title;$('verseText').textContent=v.sanskrit;$('verseMeaning').textContent=v.meaning;$('verseRef').textContent=v.ref+' · simplified Telugu meaning';if(record){if(verseTrail[versePos]!==currentVerse){verseTrail=verseTrail.slice(0,versePos+1);verseTrail.push(currentVerse);versePos=verseTrail.length-1;put('gita-verse-trail',verseTrail)}const seen=get('gita-seen-verses',[]);if(!seen.includes(currentVerse)){seen.push(currentVerse);put('gita-seen-verses',seen)}}updateNavButtons()}function showMoment(i,record=true){currentMoment=(i+moments.length)%moments.length;const m=moments[currentMoment];$('momentType').textContent=m.type;$('momentText').textContent=m.text;$('momentLesson').textContent=m.lesson;$('momentLesson').style.fontWeight='normal';$('momentLesson').innerHTML='<strong>Reflection:</strong> '+m.lesson.replace(/^(Takeaway: |Try this today: |Modern reflection: |Gita perspective: )/,'');const r=document.createElement('div');r.className='reference';r.textContent=m.ref;$('momentLesson').appendChild(r);if(record){if(momentTrail[momentPos]!==currentMoment){momentTrail=momentTrail.slice(0,momentPos+1);momentTrail.push(currentMoment);momentPos=momentTrail.length-1;put('gita-moment-trail',momentTrail)}const seen=get('gita-seen-moments',[]);if(!seen.includes(currentMoment)){seen.push(currentMoment);put('gita-seen-moments',seen)}}updateNavButtons()}function updateSaved(){const a=get('gita-favs',[]);$('savedCount').textContent=a.length?`${a.length} item${a.length===1?'':'s'} saved for later.`:'No saved verses yet. Keep what speaks to you.';$('progressBar').style.width=Math.min(100,get('gita-journey',0)*5)+'%';$('journeyText').textContent=`${get('gita-journey',0)} wisdom moments opened on this device.`}
-function modal(content){$('modalContent').innerHTML='';$('modalContent').appendChild(content);$('modalBackdrop').classList.remove('hidden')}function el(tag,attrs={},text=''){const n=document.createElement(tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n}function openChapters(){const box=el('div');box.append(el('h2',{},'The 18 chapters'));box.append(el('p',{},'A simple guide to the themes. Chapter summaries are introductory, not a substitute for reading the text.'));const list=el('div',{class:'chapter-list'});chapters.forEach((c,i)=>{const b=el('button',{class:'chapter'},'');b.innerHTML=`<strong>CHAPTER ${i+1}</strong>${c}`;b.onclick=()=>{const detail=el('div');detail.append(el('h2',{},`Chapter ${i+1}: ${c}`));detail.append(el('p',{},'Explore this chapter slowly: notice the question being asked, Krishna’s response, and one idea you can reflect on in daily life. A verified Telugu summary and verse-by-verse guide will be added in a later content pass.'));const back=el('button',{class:'btn'},'Back to chapters');back.onclick=openChapters;detail.append(back);modal(detail)};list.append(b)});box.append(list);modal(box)}function openDiary(prefill=''){const box=el('div');box.append(el('h2',{},'Reflection diary'));box.append(el('p',{},'Your notes are stored in this browser on this device. They are not uploaded to a server in this prototype.'));const lab=el('label',{class:'field-label'},'Date');box.append(lab);const date=el('input',{class:'field',type:'date',value:new Date().toISOString().slice(0,10)});box.append(date);box.append(el('label',{class:'field-label'},'Your reflection'));const ta=el('textarea',{class:'field',placeholder:'What is on your mind today?'});ta.value=prefill;box.append(ta);const save=el('button',{class:'btn primary'},'Save reflection');save.style.marginTop='14px';save.onclick=()=>{const entries=get('gita-diary',[]);entries.unshift({date:date.value,text:ta.value.trim()});put('gita-diary',entries.slice(0,100));put('gita-journey',get('gita-journey',0)+1);updateSaved();toast('Reflection saved on this device');$('modalBackdrop').classList.add('hidden')};box.append(save);const old=get('gita-diary',[]);if(old.length){box.append(el('h3',{},'Previous reflections'));old.slice(0,5).forEach(x=>{const p=el('p');p.innerHTML=`<span class="pill">${x.date}</span><br>`;p.append(el('span',{},x.text));box.append(p)})}modal(box)}function openFavs(){const box=el('div');box.append(el('h2',{},'Saved wisdom'));const favs=get('gita-favs',[]);if(!favs.length)box.append(el('p',{},'Nothing saved yet. Tap “Save wisdom” on a verse you want to keep.'));favs.forEach((v,i)=>{const c=el('div',{class:'card'});c.style.margin='10px 0';c.append(el('div',{class:'verse'},v.sanskrit));c.append(el('p',{},v.meaning));c.append(el('div',{class:'reference'},v.ref));const rm=el('button',{class:'btn'},'Remove');rm.onclick=()=>{const a=get('gita-favs',[]);a.splice(i,1);put('gita-favs',a);updateSaved();openFavs()};c.append(rm);box.append(c)});modal(box)}
+function modal(content){$('modalContent').innerHTML='';$('modalContent').appendChild(content);$('modalBackdrop').classList.remove('hidden')}function el(tag,attrs={},text=''){const n=document.createElement(tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n}function openChapters(){const box=el('div');box.append(el('h2',{},'The 18 chapters'));box.append(el('p',{},'A simple guide to the themes. Chapter summaries are introductory, not a substitute for reading the text.'));const list=el('div',{class:'chapter-list'});chapters.forEach((c,i)=>{const b=el('button',{class:'chapter'},'');b.innerHTML=`<strong>CHAPTER ${i+1}</strong>${c}`;b.onclick=()=>{const detail=el('div');detail.append(el('h2',{},`Chapter ${i+1}: ${c}`)); detail.append(el('p',{},chapterSummaries[i])); detail.append(el('p',{},'Reflection: What question does this chapter explore, and what idea could you apply thoughtfully in daily life? This is a concise thematic summary, not a verse-by-verse translation.'));const back=el('button',{class:'btn'},'Back to chapters');back.onclick=openChapters;detail.append(back);modal(detail)};list.append(b)});box.append(list);modal(box)}function openDiary(prefill=''){const box=el('div');box.append(el('h2',{},'Reflection diary'));box.append(el('p',{},'Your notes are stored in this browser on this device. They are not uploaded to a server in this prototype.'));const lab=el('label',{class:'field-label'},'Date');box.append(lab);const date=el('input',{class:'field',type:'date',value:new Date().toISOString().slice(0,10)});box.append(date);box.append(el('label',{class:'field-label'},'Your reflection'));const ta=el('textarea',{class:'field',placeholder:'What is on your mind today?'});ta.value=prefill;box.append(ta);const save=el('button',{class:'btn primary'},'Save reflection');save.style.marginTop='14px';save.onclick=()=>{const entries=get('gita-diary',[]);entries.unshift({date:date.value,text:ta.value.trim()});put('gita-diary',entries.slice(0,100));put('gita-journey',get('gita-journey',0)+1);updateSaved();toast('Reflection saved on this device');$('modalBackdrop').classList.add('hidden')};box.append(save);const old=get('gita-diary',[]);if(old.length){box.append(el('h3',{},'Previous reflections'));old.slice(0,5).forEach(x=>{const p=el('p');p.innerHTML=`<span class="pill">${x.date}</span><br>`;p.append(el('span',{},x.text));box.append(p)})}modal(box)}function openFavs(){const box=el('div');box.append(el('h2',{},'Saved wisdom'));const favs=get('gita-favs',[]);if(!favs.length)box.append(el('p',{},'Nothing saved yet. Tap “Save wisdom” on a verse you want to keep.'));favs.forEach((v,i)=>{const c=el('div',{class:'card'});c.style.margin='10px 0';c.append(el('div',{class:'verse'},v.sanskrit));c.append(el('p',{},v.meaning));c.append(el('div',{class:'reference'},v.ref));const rm=el('button',{class:'btn'},'Remove');rm.onclick=()=>{const a=get('gita-favs',[]);a.splice(i,1);put('gita-favs',a);updateSaved();openFavs()};c.append(rm);box.append(c)});modal(box)}
 $('anotherVerse').onclick=()=>{const seen=get('gita-seen-verses',[]);let choices=verses.map((_,i)=>i).filter(i=>!seen.includes(i));if(!choices.length){put('gita-seen-verses',[currentVerse]);choices=verses.map((_,i)=>i).filter(i=>i!==currentVerse);toast('You’ve seen all wisdom cards. Starting a fresh cycle.')}showVerse(choices[0]);put('gita-journey',get('gita-journey',0)+1);updateSaved()};$('previousVerse').onclick=()=>{if(versePos>0){versePos--;currentVerse=verseTrail[versePos];showVerse(currentVerse,false);updateNavButtons()}};$('verseHistory').onclick=()=>openHistory('verses');$('revealHero').onclick=()=>$('anotherVerse').click();$('momentHero').onclick=()=>$('nextMoment').click();$('nextMoment').onclick=()=>{const seen=get('gita-seen-moments',[]);let choices=moments.map((_,i)=>i).filter(i=>!seen.includes(i));if(!choices.length){put('gita-seen-moments',[currentMoment]);choices=moments.map((_,i)=>i).filter(i=>i!==currentMoment);toast('You’ve seen all Gita Moments. Starting a fresh cycle.')}showMoment(choices[0]);put('gita-journey',get('gita-journey',0)+1);updateSaved()};$('previousMoment').onclick=()=>{if(momentPos>0){momentPos--;currentMoment=momentTrail[momentPos];showMoment(currentMoment,false);updateNavButtons()}};$('momentHistory').onclick=()=>openHistory('moments');$('saveVerse').onclick=()=>{const v=verses[currentVerse],a=get('gita-favs',[]);if(!a.some(x=>x.ref===v.ref&&x.sanskrit===v.sanskrit)){a.unshift(v);put('gita-favs',a);toast('Saved to your favourites')}else toast('Already saved');updateSaved()};$('copyVerse').onclick=async()=>{const v=verses[currentVerse],text=`${v.sanskrit}\n${v.meaning}\n${v.ref}`;try{await navigator.clipboard.writeText(text);toast('Verse copied')}catch{toast('Copy is unavailable in this browser')}};
 document.querySelectorAll('[data-mood]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-mood]').forEach(x=>x.classList.remove('active'));b.classList.add('active');const m=moods[b.dataset.mood];$('moodLabel').textContent=m.label;$('moodTitle').textContent=m.title;$('moodMeaning').textContent=m.meaning;$('moodRef').textContent=m.ref;$('moodResult').classList.remove('hidden')});$('chaptersBtn').onclick=openChapters;$('favoritesBtn').onclick=openFavs;$('diaryBtn').onclick=()=>openDiary();$('writePrompt').onclick=()=>openDiary('What is one thing I can do today with sincerity, without letting the outcome control my peace?');$('profileBtn').onclick=()=>{const box=el('div');box.append(el('h2',{},'Your space'));box.append(el('p',{},'This first prototype keeps favourites and diary notes in this browser. Account backup, private messaging, birthday unlocks, and Telegram approval are not active yet; those require secure backend work.'));const name=el('input',{class:'field',placeholder:'Preferred name (optional)',value:get('gita-name','')});box.append(el('label',{class:'field-label'},'What should we call you?'));box.append(name);const save=el('button',{class:'btn primary'},'Save on this device');save.style.marginTop='12px';save.onclick=()=>{put('gita-name',name.value.trim());toast('Preference saved on this device');$('modalBackdrop').classList.add('hidden')};box.append(save);modal(box)};$('closeModal').onclick=()=>$('modalBackdrop').classList.add('hidden');$('modalBackdrop').onclick=e=>{if(e.target===$('modalBackdrop'))$('modalBackdrop').classList.add('hidden')};function updateNavButtons(){$('previousVerse').disabled=versePos<=0;$('previousMoment').disabled=momentPos<=0}function openHistory(kind){const isVerse=kind==='verses',trail=isVerse?verseTrail:momentTrail,items=isVerse?verses:moments;const box=el('div');box.append(el('h2',{},isVerse?'Wisdom history':'Gita Moments history'));if(!trail.length)box.append(el('p',{},'Nothing viewed yet.'));[...trail].reverse().forEach((idx,order)=>{const item=items[idx];const b=el('button',{class:'chapter'},isVerse?item.title:item.type);b.style.display='block';b.style.width='100%';b.style.margin='8px 0';b.onclick=()=>{const at=trail.length-1-order;if(isVerse){versePos=at;currentVerse=trail[at];showVerse(currentVerse,false)}else{momentPos=at;currentMoment=trail[at];showMoment(currentMoment,false)}updateNavButtons();$('modalBackdrop').classList.add('hidden')};box.append(b)});modal(box)}showVerse(verseTrail[versePos]??0,false);showMoment(momentTrail[momentPos]??0,false);const sv=get('gita-seen-verses',[]);if(!sv.includes(currentVerse)){sv.push(currentVerse);put('gita-seen-verses',sv)}const sm=get('gita-seen-moments',[]);if(!sm.includes(currentMoment)){sm.push(currentMoment);put('gita-seen-moments',sm)}updateNavButtons();updateSaved();if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   window.addEventListener('load', async () => {
