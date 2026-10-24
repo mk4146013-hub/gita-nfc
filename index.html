@@ -11,7 +11,20 @@
 /* Added experience modules */
 .mission-list{display:grid;gap:10px;margin-top:14px}.mission-row{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid #ffffff18;border-radius:13px;background:#ffffff05}.mission-row input{margin-top:5px;accent-color:var(--gold);width:18px;height:18px}.mission-row.done{opacity:.78;border-color:#8dbb9b66}.mission-row strong{display:block}.mission-row small{color:var(--muted);font: .78rem system-ui,sans-serif}.feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}.feature-grid .card{min-width:0}.status-preview{white-space:pre-wrap;background:#0d1730;border:1px solid #ffffff22;padding:14px;border-radius:12px;color:var(--gold2);font-size:.9rem}.night-mode{background:#070b17!important;color:#fff!important}.night-mode .card{background:linear-gradient(145deg,#10172b,#0b1223)}.feature-note{font: .78rem system-ui,sans-serif;color:var(--muted)}.mini-input{width:100%;background:#0e1730;border:1px solid #ffffff25;border-radius:10px;color:var(--cream);padding:10px;margin:6px 0}.btn:disabled{opacity:.45;cursor:not-allowed}@media(max-width:740px){.feature-grid{grid-template-columns:1fr}}
 
-# gitaSecretTrigger{flex:0 0 auto;margin-left:auto;width:38px;height:38px;border:1px solid #d4af3770;border-radius:50%;background:#e8c77712;color:#e8c777;font-size:22px;opacity:.7;transform:rotate(18deg);transition:opacity .2s,transform .2s}#gitaSecretTrigger:hover,#gitaSecretTrigger:focus{opacity:1;transform:rotate(0)}.secret-chat-log{display:flex;flex-direction:column;gap:8px;max-height:240px;overflow:auto;padding:10px 0}.secret-chat-msg{max-width:88%;padding:9px 12px;border-radius:13px;background:#ffffff10;overflow-wrap:anywhere}.secret-chat-msg.mine{align-self:flex-end;background:#e8c77720;border:1px solid #e8c77740}.secret-chat-meta{font: .72rem system-ui,sans-serif;color:var(--muted);margin-bottom:3px}.status-canvas-preview{display:block;width:min(100%,300px);height:auto;margin:12px auto;border:1px solid #e8c77766;border-radius:12px;background:#0d1730}.studio-controls{display:grid;gap:8px;margin:12px 0}.studio-controls label{font: .78rem system-ui,sans-serif;color:var(--muted)}
+#gitaSecretTrigger{flex:0 0 auto;margin-left:auto;width:38px;height:38px;border:1px solid #d4af3770;border-radius:50%;background:#e8c77712;color:#e8c777;font-size:22px;opacity:.7;transform:rotate(18deg);transition:opacity .2s,transform .2s}#gitaSecretTrigger:hover,#gitaSecretTrigger:focus{opacity:1;transform:rotate(0)}.secret-chat-log{display:flex;flex-direction:column;gap:8px;max-height:240px;overflow:auto;padding:10px 0}.secret-chat-msg{max-width:88%;padding:9px 12px;border-radius:13px;background:#ffffff10;overflow-wrap:anywhere}.secret-chat-msg.mine{align-self:flex-end;background:#e8c77720;border:1px solid #e8c77740}.secret-chat-meta{font: .72rem system-ui,sans-serif;color:var(--muted);margin-bottom:3px}.status-canvas-preview{display:block;width:min(100%,300px);height:auto;margin:12px auto;border:1px solid #e8c77766;border-radius:12px;background:#0d1730}.studio-controls{display:grid;gap:8px;margin:12px 0}.studio-controls label{font: .78rem system-ui,sans-serif;color:var(--muted)}
+
+/* Theme safety layer: keep the original navy-and-gold design explicit. */
+:root{color-scheme:dark;--navy:#101a35;--navy2:#17274a;--gold:#e8c777;--gold2:#f8e7b3;--cream:#fff9eb;--muted:#c3c8d5}
+html,body{min-height:100%;background-color:#101a35!important;color:#fff9eb!important}
+body{background-image:radial-gradient(ellipse at 85% 0%,#27365b 0,transparent 38%)!important;font-family:Georgia,'Noto Serif Telugu','Nirmala UI',serif!important}
+.shell{max-width:1080px;margin:0 auto;padding:0 20px 90px}
+.topbar,.footer{border-color:#ffffff24}
+.card,.modal{background:linear-gradient(145deg,#1a2848,#141f3a)!important;color:#fff9eb!important;border-color:#e8c77735!important}
+.hero-art{background:linear-gradient(145deg,#1e3157,#10182e 70%)!important;border-color:#c9a85c88!important}
+button,.btn,.field,input,textarea,select{color:inherit}
+.btn.primary{background:#e8c777!important;color:#1b2340!important;border-color:#e8c777!important}
+.card p,.hero p,.modal p{color:#d5d9e2}
+
 </style>
 </head>
 <body><div class="shell">
@@ -517,7 +530,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
       for (const registration of registrations) {
         await registration.update();
       }
-      await navigator.serviceWorker.register('./sw.js?v=3', {
+      await navigator.serviceWorker.register('./sw.js?v=4', {
         updateViaCache: 'none'
       });
     } catch (error) {
@@ -526,3 +539,5 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   });
 }
 </script>
+</body>
+</html>
